@@ -9,7 +9,7 @@ import { expenses as initialExpenses } from './data/expenses'
 const categories = ['Food', 'Transport', 'Shopping', 'Bills', 'Others']
 const todayString = () => new Date().toISOString().slice(0, 10)
 const blankForm = () => ({ title: '', amount: '', category: '', date: todayString(), description: '' })
-const money = (amount) => `$${amount.toFixed(2)}`
+const money = (amount) => `Rs ${amount.toFixed(2)}`
 
 export default function App() {
   const [expenses, setExpenses] = useState(initialExpenses)

@@ -19,7 +19,7 @@ export default function AddExpenseForm({ values, errors, onChange, onSubmit, onC
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor="expense-amount" className="mb-1.5 block text-sm font-medium text-slate-700">Amount</label>
-              <div className="relative"><span className="absolute left-3 top-2.5 text-sm text-slate-400">$</span><input id="expense-amount" name="amount" type="number" min="0.01" step="0.01" value={values.amount} onChange={onChange} placeholder="0.00" className="form-input pl-7" /></div>
+              <div className="relative"><span className="absolute left-3 top-2.5 text-sm text-slate-400">Rs</span><input id="expense-amount" name="amount" type="number" min="0.01" step="0.01" value={values.amount} onChange={onChange} placeholder="0.00" className="form-input pl-9" /></div>
               {errors.amount && <p className="mt-1 text-xs text-red-600">{errors.amount}</p>}
             </div>
             <div>
