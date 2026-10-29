@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Plus, Sparkles } from 'lucide-react'
 import Navbar from './components/Navbar'
 import SummaryCard from './components/SummaryCard'
@@ -7,17 +7,46 @@ import AddExpenseForm from './components/AddExpenseForm'
 import { expenses as initialExpenses } from './data/expenses'
 
 const categories = ['Food', 'Transport', 'Shopping', 'Bills', 'Others']
+const STORAGE_KEY = 'spendwise-expenses'
 const todayString = () => new Date().toISOString().slice(0, 10)
 const blankForm = () => ({ title: '', amount: '', category: '', date: todayString(), description: '' })
 const money = (amount) => `Rs ${amount.toFixed(2)}`
 
+function loadExpenses() {
+  try {
+    if (typeof window === 'undefined') return initialExpenses
+    const savedExpenses = window.localStorage.getItem(STORAGE_KEY)
+    if (!savedExpenses) return initialExpenses
+    const parsedExpenses = JSON.parse(savedExpenses)
+    return isValidExpenses(parsedExpenses) ? parsedExpenses : initialExpenses
+  } catch {
+    return initialExpenses
+  }
+}
+
+function isValidExpenses(value) {
+  return Array.isArray(value) && value.every((expense) => (
+    expense && typeof expense === 'object' && expense.id !== undefined &&
+    typeof expense.name === 'string' && typeof expense.category === 'string' &&
+    typeof expense.date === 'string' && typeof expense.amount === 'number' && Number.isFinite(expense.amount)
+  ))
+}
+
 export default function App() {
-  const [expenses, setExpenses] = useState(initialExpenses)
+  const [expenses, setExpenses] = useState(loadExpenses)
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [form, setForm] = useState(blankForm)
   const [errors, setErrors] = useState({})
   const [editingId, setEditingId] = useState(null)
   const [feedback, setFeedback] = useState('')
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses))
+    } catch {
+      // Storage may be unavailable, but the in-memory app should continue working.
+    }
+  }, [expenses])
 
   const openForm = () => { setForm(blankForm()); setErrors({}); setEditingId(null); setIsFormOpen(true) }
   const openEditForm = (expense) => { setForm({ title: expense.name, amount: String(expense.amount), category: expense.category, date: toInputDate(expense.date), description: expense.description || '' }); setErrors({}); setEditingId(expense.id); setIsFormOpen(true) }
