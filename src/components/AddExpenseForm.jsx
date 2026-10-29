@@ -2,12 +2,12 @@ import { X } from 'lucide-react'
 
 const categories = ['Food', 'Transport', 'Shopping', 'Bills', 'Others']
 
-export default function AddExpenseForm({ values, errors, onChange, onSubmit, onClose }) {
+export default function AddExpenseForm({ values, errors, onChange, onSubmit, onClose, isEditing }) {
   return (
     <div className="fixed inset-0 z-20 flex items-center justify-center bg-slate-900/40 px-4 py-6" role="dialog" aria-modal="true" aria-labelledby="add-expense-title">
       <div className="max-h-full w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-xl">
         <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5">
-          <div><h2 id="add-expense-title" className="font-bold text-slate-900">Add expense</h2><p className="mt-1 text-sm text-slate-500">Record a new transaction</p></div>
+          <div><h2 id="add-expense-title" className="font-bold text-slate-900">{isEditing ? 'Edit expense' : 'Add expense'}</h2><p className="mt-1 text-sm text-slate-500">{isEditing ? 'Update this transaction' : 'Record a new transaction'}</p></div>
           <button type="button" onClick={onClose} aria-label="Close form" className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"><X size={20} /></button>
         </div>
         <form onSubmit={onSubmit} noValidate className="space-y-4 px-6 py-5">
@@ -39,7 +39,7 @@ export default function AddExpenseForm({ values, errors, onChange, onSubmit, onC
             <label htmlFor="expense-description" className="mb-1.5 block text-sm font-medium text-slate-700">Description <span className="font-normal text-slate-400">(optional)</span></label>
             <textarea id="expense-description" name="description" value={values.description} onChange={onChange} rows="3" placeholder="Add a note about this expense" className="form-input resize-none" />
           </div>
-          <div className="flex justify-end gap-3 border-t border-slate-100 pt-4"><button type="button" onClick={onClose} className="rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-100">Cancel</button><button type="submit" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600">Save expense</button></div>
+          <div className="flex justify-end gap-3 border-t border-slate-100 pt-4"><button type="button" onClick={onClose} className="rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-100">Cancel</button><button type="submit" className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600">{isEditing ? 'Save changes' : 'Save expense'}</button></div>
         </form>
       </div>
     </div>
