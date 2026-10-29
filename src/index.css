@@ -5,3 +5,5 @@
 body { margin: 0; min-width: 320px; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
+.form-input { width: 100%; border: 1px solid #cbd5e1; border-radius: 0.75rem; background: white; padding: 0.625rem 0.75rem; font-size: 0.875rem; color: #0f172a; outline: none; }
+.form-input:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgb(16 185 129 / 0.12); }
