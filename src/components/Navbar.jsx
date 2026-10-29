@@ -16,7 +16,7 @@ export default function Navbar() {
           <a className="transition-colors hover:text-slate-900" href="#reports">Reports</a>
         </nav>
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700">JD</div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700">AP</div>
           <button type="button" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)} className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 md:hidden">{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
         </div>
       </div>
